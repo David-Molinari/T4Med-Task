@@ -1,0 +1,35 @@
+.ChartContainer {
+    display:flex;
+    align-items: center;
+    margin: 0 25px;
+    padding: 25px 0 55px;
+    border-bottom: 1px dotted #6e5a9a;
+}
+.lastChart {
+    border: none;
+}
+.onlyChart {
+    border: none;
+}
+.ChartDate {
+    margin-right: 25px;
+}
+@media only screen and (max-width: 925px) {
+    .ChartContainer {
+        flex-direction: column;
+        margin: 25px;
+    }
+    .ChartDate {
+        margin: 0;
+    }
+}
+@media only screen and (max-width: 525px) {
+    .ChartContainer {
+        margin: 25px 5px;
+    }
+}
+@media only screen and (min-width: 525px) {
+    .onlyChart {
+        margin-top: 50px;
+    }
+}

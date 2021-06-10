@@ -1,24 +1,48 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from "react";
 import './App.css';
+import axios from "axios";
+import moment from "moment";
+import Nav from "./components/Nav";
+import Graph from "./components/Graph";
 
 function App() {
+
+  const [glucoseData, setGlucoseData] = useState([])
+  const [glucoseRanges, setGlucoseRanges] = useState([])
+  const [selectedDates, setSelectedDates] = useState({
+    start: "",
+    end: ""
+  })
+
+  useEffect(()=> {
+    axios.get(`https://caiken.dev.transformativemed.com/david-skills-test/data.php`)
+      .then(res => {
+        let data = res.data
+        setGlucoseData(data.glucose_data)
+        setGlucoseRanges(data.glucose_ranges)
+        let startDT = data.glucose_data[0].result_dt_tm
+        let startD = moment(startDT.slice(0, startDT.search(" "))).format()
+        let endDT = data.glucose_data[data.glucose_data.length - 1].result_dt_tm
+        let endD = moment(endDT.slice(0, endDT.search(" "))).format()
+        setSelectedDates({
+          start: startD,
+          end: endD
+        })
+      })
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {glucoseData.length ? 
+        <div className="App">
+          <Nav selectedDates={selectedDates} setSelectedDates={setSelectedDates} glucoseData={glucoseData}/>
+          <Graph selectedDates={selectedDates} glucoseData={glucoseData} glucoseRanges={glucoseRanges}/>
+        </div>
+      : 
+      <h1 id="Loading">
+        Loading...
+      </h1>}
+    </>
   );
 }
 

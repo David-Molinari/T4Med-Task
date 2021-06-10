@@ -1,0 +1,75 @@
+#NavContainer {
+    padding: 0 15px;
+    background: #6e5a9a;
+}
+#NavbarBrand {
+    margin-left: 75px;
+    font-size: 1.5rem;
+    color: #f7f7f7;
+}
+#NavForm {
+    margin: 15px 75px;
+    display: flex;
+    justify-content: center;
+}
+.NavFormGroup {
+    display: flex;
+    align-items: center;
+}
+#SecondNFG {
+    margin-left: 25px;
+}
+.rdp-input-group {
+    width: 115px !important;
+}
+.Label {
+    margin-right: 15px;
+    color: #f7f7f7;
+    font-size: 1.15rem;
+    text-align: left;
+}
+.DatePicker {
+    max-width: 250px;
+}
+.form-control {
+    border-radius: .25rem !important;
+}
+.bg-primary1 {
+    color: #f7f7f7;
+    background-color: #6e5a9a !important;
+}
+@media only screen and (max-width: 925px) {
+    #Navbar {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #NavbarBrand {
+      margin-left: 0px;
+    }
+  }
+@media only screen and (max-width: 525px) {
+    #NavForm {
+        margin: 15px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    #SecondNFG {
+        margin: 15px 0;
+    }
+    .Label {
+        width: 50px;
+        margin: 0;
+    }
+}
+@media only screen and (max-width: 350px) {
+    #NavbarBrand {
+        font-size: 1.25rem;
+        margin-right: 50px;
+    }
+    .NavFormGroup {
+        margin-right: 115px;
+    }
+}
