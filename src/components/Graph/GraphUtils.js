@@ -143,7 +143,6 @@ export function createData(item, props) {
             color: color,
             series: {
                 lines: {
-                    lineWidth: 20,
                     show: true, 
                     fill: true, 
                     fillColor: {
