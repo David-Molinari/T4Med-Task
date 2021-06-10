@@ -131,11 +131,13 @@ export function createData(item, props) {
     let dataToSend = []
 
     for (let i0 = 0; i0 < seriesArr.length; i0++) {
+        let avg = (seriesArr[i0][0][1] + seriesArr[i0][1][1])/2
         let color
-        for (let i1 = 0; i1 < props.glucoseRanges; i1++) {
-            if (seriesArr[i0][0][1] > props.glucoseRanges[i1][0] &&
-                seriesArr[i0][0][1] < props.glucoseRanges[i1][1]) {
+        for (let i1 = 0; i1 < props.glucoseRanges.length; i1++) {
+            if (avg > props.glucoseRanges[i1][0] &&
+                avg < props.glucoseRanges[i1][1]) {
                 color = props.glucoseRanges[i1][2]
+                break
             }
         }
         dataToSend.push({
