@@ -1,0 +1,29 @@
+#ModalHeader {
+    background-color: #6e5a9a;
+    border-bottom: none !important;
+}
+.modal-title {
+    font-size: 2rem;
+    color: #fff;
+}
+.close {
+    background-color: #fff;
+}
+.ModalRow {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+}
+#ModalBodyTopRow {
+    padding-top: .5rem;
+}
+.ModalLabel {
+    margin-right: 15px;
+    color: #6e5a9a;
+}
+.ModalEntry {
+    padding-top: 2px;
+}
+#ResultIdEntry {
+    padding-top: 0;
+}

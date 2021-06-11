@@ -4,7 +4,6 @@ import { Navbar, NavbarBrand, Form, FormGroup, Label } from 'reactstrap';
 import DatePicker from 'reactstrap-date-picker';
 import moment from 'moment';
 
-
 function Navigation(props) {
 
     const handleChangeStart = (data) => {

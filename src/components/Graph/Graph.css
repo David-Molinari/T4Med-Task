@@ -14,6 +14,9 @@
 .ChartDate {
     margin-right: 25px;
 }
+#Modal {
+    margin-top: 25vh;
+}
 @media only screen and (max-width: 925px) {
     .ChartContainer {
         flex-direction: column;

@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './Graph.css';
 import '../../jquery-loader';
 import ReactFlot from 'react-flot';
 import '../../../node_modules/react-flot/flot/jquery.flot.time.min';
 import moment from 'moment';
 import { createData } from './GraphUtils';
+import ModalComp from '../Modal';
 
 function Graph(props) {
+
+    const [modal, setModal] = useState({
+        open: false,
+        data: {
+            glucoseLevel: 0,
+            resultDate: "",
+            source: "",
+            resultId: ""
+        }
+    })
+
+    const [ready, setReady] = useState(false)
+
+    useEffect(()=> {
+        setTimeout(()=> {
+            setReady(false)
+            setReady(true)
+        }, [100])
+    }, [props.selectedDates])
 
     let glucoseDBD = {}
 
@@ -68,8 +88,11 @@ function Graph(props) {
             ticks: [100, 180]
         },
         series: {
-            lines: { show: true }
-            // points: { show: true }
+            lines: { show: true, lineWidth: 5 }
+        },
+        grid: {
+            clickable: true,
+            autoHighlight: false
         }
     }
 
@@ -98,22 +121,27 @@ function Graph(props) {
                                 >
                                     {item.date}
                                 </h5>
-                                <ReactFlot 
+                                <ReactFlot
                                     key={`rf${item.date.replaceAll('/', '')}`}
                                     id={`${item.date.replaceAll('/', '')}`} 
                                     className="FlotChart"
-                                    data={createData(item, props)} 
+                                    data={createData(item, props, setModal)} 
                                     options={options} 
                                     width="100%" 
                                     height="250px" 
                                 />
                             </div>
                         )
-
                     }
                 })
             : " "
             }
+            <ModalComp
+                id="Modal"
+                modal={modal} 
+                setModal={setModal}
+                glucoseRanges={props.glucoseRanges}
+            />
         </div>
     );
 }
