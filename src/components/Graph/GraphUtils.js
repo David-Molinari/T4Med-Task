@@ -155,7 +155,6 @@ export function createData(item, props, setModal) {
         for (let i1 = 0; i1 < TandGL.length; i1++) {
             let TandGL0 = TandGL[i1][0]
             let TandGL1 = TandGL[i1][1]
-            console.log(color)
             if (firstT == TandGL0 && firstGl == TandGL1) {
                 dataToPush.push({
                     data: [[firstT, firstGl]],
