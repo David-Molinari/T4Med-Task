@@ -88,7 +88,10 @@ function Graph(props) {
             ticks: [100, 180]
         },
         series: {
-            lines: { show: true, lineWidth: 5 }
+            lines: { 
+                show: true, 
+                lineWidth: 5 
+            }
         },
         grid: {
             clickable: true,

@@ -155,11 +155,17 @@ export function createData(item, props, setModal) {
         for (let i1 = 0; i1 < TandGL.length; i1++) {
             let TandGL0 = TandGL[i1][0]
             let TandGL1 = TandGL[i1][1]
+            console.log(color)
             if (firstT == TandGL0 && firstGl == TandGL1) {
                 dataToPush.push({
                     data: [[firstT, firstGl]],
                     color: color,
-                    points: {show: true, radius: 7}
+                    points: {
+                        show: true,
+                        fill: true,
+                        radius: 7,
+                        fillColor: color
+                    }
                 })
                 fAndOrL = "1"
             }
@@ -169,7 +175,12 @@ export function createData(item, props, setModal) {
                 dataToPush.push({
                     data: [[secondT, secondGl]],
                     color: color,
-                    points: {show: true, radius: 7}
+                    points: {
+                        show: true,
+                        fill: true,
+                        radius: 7,
+                        fillColor: color
+                    }
                 })
                 if (fAndOrL == "0") {
                     fAndOrL = "2"
