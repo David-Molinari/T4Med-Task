@@ -34,10 +34,6 @@
 .form-control {
     border-radius: .25rem !important;
 }
-.bg-primary1 {
-    color: #f7f7f7;
-    background-color: #6e5a9a !important;
-}
 .datepicker table tr td.active:active, 
 .datepicker table tr td.active.highlighted:active, 
 .datepicker table tr td.active.active, 

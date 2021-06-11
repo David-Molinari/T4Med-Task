@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './Modal.css';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { hexToRgbA } from './ModalUtils';
+import { hexToRgbA } from '../../Utils';
 
 function ModalComp(props) {
 
@@ -15,7 +15,7 @@ function ModalComp(props) {
             let gL0 = props.modal.data.glucoseLevelNum
             for (let i = 0; i < gRs.length; i++) {
                 if (gL0 >= gRs[i][0] && gL0 <= gRs[i][1]) {
-                    setColor(hexToRgbA(gRs[i][2]))
+                    setColor(hexToRgbA(gRs[i][2], .15))
                 }
             }
         }

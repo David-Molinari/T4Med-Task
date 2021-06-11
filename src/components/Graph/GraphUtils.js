@@ -1,4 +1,5 @@
 import $ from "jquery";
+import { hexToRgbA } from '../../Utils';
 
 export function createData(item, props, setModal) {
     
@@ -139,7 +140,7 @@ export function createData(item, props, setModal) {
         }
         dataPreSend.push({
             data: seriesArr[i0],
-            color: color
+            color: hexToRgbA(color, .5)
         })
     }
 
@@ -155,6 +156,10 @@ export function createData(item, props, setModal) {
         for (let i1 = 0; i1 < TandGL.length; i1++) {
             let TandGL0 = TandGL[i1][0]
             let TandGL1 = TandGL[i1][1]
+            let fillColor = color
+            if (color != undefined) {
+                fillColor = color.slice(0, color.indexOf(")") - 3)+"1)"
+            }
             if (firstT == TandGL0 && firstGl == TandGL1) {
                 dataToPush.push({
                     data: [[firstT, firstGl]],
@@ -163,7 +168,7 @@ export function createData(item, props, setModal) {
                         show: true,
                         fill: true,
                         radius: 7,
-                        fillColor: color
+                        fillColor: fillColor
                     }
                 })
                 fAndOrL = "1"
@@ -178,7 +183,7 @@ export function createData(item, props, setModal) {
                         show: true,
                         fill: true,
                         radius: 7,
-                        fillColor: color
+                        fillColor: fillColor
                     }
                 })
                 if (fAndOrL == "0") {
