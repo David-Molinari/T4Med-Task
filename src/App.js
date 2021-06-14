@@ -14,6 +14,7 @@ function App() {
     end: ""
   })
 
+  // Fetch glucose data on app mount, and set initial state
   useEffect(()=> {
     axios.get(`https://caiken.dev.transformativemed.com/david-skills-test/data.php`)
       .then(res => {

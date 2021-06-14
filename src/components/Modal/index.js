@@ -9,6 +9,9 @@ function ModalComp(props) {
 
     const [color, setColor] = useState("")
 
+    // When the modal state variable is updated,
+    // if open is set to true, add the appropriate
+    // background color to the modal
     useEffect(()=> {
         if (props.modal.open == true) {
             let gRs = props.glucoseRanges
@@ -26,6 +29,7 @@ function ModalComp(props) {
             <ModalHeader 
                 id="ModalHeader" 
                 toggle={toggle}
+                style={{color: color}}
             >
                 Glucose Reading
             </ModalHeader>

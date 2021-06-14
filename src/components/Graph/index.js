@@ -19,8 +19,9 @@ function Graph(props) {
         }
     })
 
+    // On date change, update DOM on delay
+    // to allow plotclick to attach
     const [ready, setReady] = useState(false)
-
     useEffect(()=> {
         setTimeout(()=> {
             setReady(false)
@@ -28,8 +29,8 @@ function Graph(props) {
         }, [100])
     }, [props.selectedDates])
 
+    // Build object of glucose readings by day
     let glucoseDBD = {}
-
     for (let i = 0; i < props.glucoseData.length; i++) {
         let reading = props.glucoseData[i]
         let dT = reading.result_dt_tm
@@ -41,8 +42,8 @@ function Graph(props) {
         }
     }
 
+    // Build array of glucose readings by day
     let glucoseDBDArr = []
-
     for (let i = 0; i < Object.keys(glucoseDBD).length; i++) {
         let date = Object.keys(glucoseDBD)[i]
         glucoseDBDArr.push({
@@ -50,11 +51,10 @@ function Graph(props) {
             result: glucoseDBD[date]
         })
     }
-
     glucoseDBDArr.reverse()
 
+    // Format x-axis ticks
     let ticks = [[0,"00:00"]]
-
     for (let i = 2; i < 25; i = i + 2) {
         if (i < 10) {
             ticks.push([i, `0${i}:00`])
@@ -62,7 +62,7 @@ function Graph(props) {
             ticks.push([i, `${i}:00`]) 
         }
     }
-
+    
     if (window.innerWidth < 725) {
         ticks = [[0,"00"]]
         for (let i = 2; i < 25; i = i + 2) {
@@ -74,6 +74,7 @@ function Graph(props) {
         }
     }
 
+    // Define options for flot graphs
     const options = {
         xaxis: {
             min: 0, 
@@ -102,10 +103,12 @@ function Graph(props) {
     return (
         <div id="Graphs">
             {
+            // Map graphs in range of selected dates
             props.selectedDates.start.length > 0 ?
                 glucoseDBDArr.map((item) => {
                     let momentS = moment(props.selectedDates.start).format('L')
                     let momentE = moment(props.selectedDates.end).format('L')
+                    // Add special classes to first and last chart for styling
                     if (item.date >= momentS && item.date <= momentE) {
                         let addClass = ""
                         if (momentS == momentE) {
