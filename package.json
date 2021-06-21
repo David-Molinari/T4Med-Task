@@ -1,14 +1,16 @@
 {
-  "name": "t4med-task",
+  "name": "glucose-reader-fe",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.20",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
     "flot": "^4.2.2",
+    "graphql": "^15.5.1",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
