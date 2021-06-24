@@ -13,7 +13,7 @@ import {
 require('dotenv').config();
 
 const client = new ApolloClient({
-  uri: proccess.env.URI,
+  uri: process.env.URI,
   cache: new InMemoryCache({
     addTypename: false
   })

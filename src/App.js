@@ -58,6 +58,8 @@ function App() {
 
   if (error) return `${error}`;
 
+  console.log(data)
+
   return (
     <>
       {!loading && glucoseData.length ? 
