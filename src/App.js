@@ -44,6 +44,10 @@ function App() {
       data.ranges.forEach((r)=> {
         rangesToArrays.push([r.low_bound, r.high_bound, r.color])
       })
+      rangesToArrays.sort(function(a, b) {
+        return a[0] - b[0];
+      });
+      console.log(rangesToArrays)
       setGlucoseRanges(rangesToArrays)
       let startDT = data.data[0].result_dt_tm
       let startD = moment(startDT.slice(0, startDT.search(" "))).format()
@@ -57,8 +61,6 @@ function App() {
   }, [data])
 
   if (error) return `${error}`;
-
-  console.log(data)
 
   return (
     <>

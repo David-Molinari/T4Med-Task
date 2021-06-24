@@ -12,8 +12,10 @@ import {
 
 require('dotenv').config();
 
+console.log(process.env)
+
 const client = new ApolloClient({
-  uri: process.env.URI,
+  uri: process.env.REACT_APP_URI,
   cache: new InMemoryCache({
     addTypename: false
   })
