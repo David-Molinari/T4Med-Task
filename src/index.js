@@ -10,8 +10,10 @@ import {
   ApolloProvider
 } from "@apollo/client";
 
+require('dotenv').config();
+
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
+  uri: proccess.env.URI,
   cache: new InMemoryCache({
     addTypename: false
   })
