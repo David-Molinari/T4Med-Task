@@ -71,7 +71,7 @@ function App() {
         <div className="App">
             <Modal isOpen={modalOpen} className="Modal">
               <ModalHeader 
-                    id="ModalHeader" 
+                    className="ModalHeader" 
                     toggle={toggle}
               >
                 See more info
@@ -79,7 +79,7 @@ function App() {
               <ModalBody 
                   className="ModalBody"
               >
-                Click data points (colored dots) for more info on the reading
+                Click data point (colored dot) for more info on that reading
               </ModalBody>
           </Modal>
           <Nav selectedDates={selectedDates} setSelectedDates={setSelectedDates} glucoseData={glucoseData}/>

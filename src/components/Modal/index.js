@@ -27,7 +27,7 @@ function ModalComp(props) {
     return (
         <Modal isOpen={props.modal.open} className="Modal">
             <ModalHeader 
-                id="ModalHeader" 
+                className="ModalHeader" 
                 toggle={toggle}
                 style={{color: color}}
             >
