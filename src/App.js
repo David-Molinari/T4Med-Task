@@ -7,6 +7,7 @@ import {
   useQuery,
   gql
 } from "@apollo/client";
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const GET_RANGES_AND_DATA = gql`
   query GetRangesAndData {
@@ -33,6 +34,9 @@ function App() {
     start: "",
     end: ""
   })
+  const [modalOpen, setModalOpen] = useState(true)
+
+  const toggle = () => setModalOpen(false);
 
   const { loading, error, data } = useQuery(GET_RANGES_AND_DATA);
 
@@ -47,7 +51,6 @@ function App() {
       rangesToArrays.sort(function(a, b) {
         return a[0] - b[0];
       });
-      console.log(rangesToArrays)
       setGlucoseRanges(rangesToArrays)
       let startDT = data.data[0].result_dt_tm
       let startD = moment(startDT.slice(0, startDT.search(" "))).format()
@@ -66,6 +69,19 @@ function App() {
     <>
       {!loading && glucoseData.length ? 
         <div className="App">
+            <Modal isOpen={modalOpen} className="Modal">
+              <ModalHeader 
+                    id="ModalHeader" 
+                    toggle={toggle}
+              >
+                See more info
+              </ModalHeader>
+              <ModalBody 
+                  className="ModalBody"
+              >
+                Click data points (colored dots) for more info on the reading
+              </ModalBody>
+          </Modal>
           <Nav selectedDates={selectedDates} setSelectedDates={setSelectedDates} glucoseData={glucoseData}/>
           <Graph selectedDates={selectedDates} glucoseData={glucoseData} glucoseRanges={glucoseRanges}/>
         </div>
