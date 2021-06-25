@@ -1,21 +1,41 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch } from "react";
 import './Modal.css';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { hexToRgbA } from '../../Utils';
 
-function ModalComp(props) {
+interface IModal {
+    open: boolean;
+    data: {
+        glucoseLevelNum?: number,
+        glucoseLevel: number | string,
+        resultDate: string,
+        source: string,
+        resultId: string
+    };
+}
 
-    const toggle = () => props.setModal({...props.modal, open: false});
+type RangeTuple = [number, number, string]
 
-    const [color, setColor] = useState("")
+interface IProps {
+    modal: IModal,
+    setModal: Dispatch<IModal>,
+    glucoseRangeTuples: RangeTuple[]
+}
+
+function ModalComp(props: IProps) {
+
+    const toggle = (): void => props.setModal({...props.modal, open: false});
+
+    const [color, setColor] = useState<string>("")
 
     // When the modal state variable is updated,
     // if open is set to true, add the appropriate
     // background color to the modal
-    useEffect(()=> {
+    useEffect((): void => {
         if (props.modal.open == true) {
-            let gRs = props.glucoseRanges
-            let gL0 = props.modal.data.glucoseLevelNum
+            let gl0pass: any = props.modal.data.glucoseLevelNum
+            let gRs: RangeTuple[] = props.glucoseRangeTuples
+            let gL0: number = gl0pass
             for (let i = 0; i < gRs.length; i++) {
                 if (gL0 >= gRs[i][0] && gL0 <= gRs[i][1]) {
                     setColor(hexToRgbA(gRs[i][2], .15))

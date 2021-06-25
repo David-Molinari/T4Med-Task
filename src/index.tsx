@@ -10,9 +10,9 @@ import {
   ApolloProvider
 } from "@apollo/client";
 
-require('dotenv').config();
+import dotenv from 'dotenv'
 
-console.log(process.env)
+dotenv.config()
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_URI,
