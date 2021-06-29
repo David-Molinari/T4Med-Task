@@ -1,12 +1,11 @@
-import { useState, /*useEffect*/} from "react";
+import { useState, useEffect } from "react";
 import './Graph.css';
 import '../../jquery-loader';
-import 'react-flot/flot/jquery.flot.time.min';
+import ReactFlot from 'react-flot';
+import '../../../node_modules/react-flot/flot/jquery.flot.time.min';
 import moment from 'moment';
 import { createData } from './GraphUtils';
 import ModalComp from '../Modal';
-declare var require: any
-const ReactFlot = require('react-flot');
 
 interface ISelectedDates {
     start: string,
@@ -83,15 +82,17 @@ function Graph(props: IProps): JSX.Element {
         }
     })
 
-    // // On date change, update DOM on delay
-    // // to allow plotclick to attach
-    // const [ready, setReady] = useState(false)
-    // useEffect(()=> {
-    //     setTimeout(()=> {
-    //         setReady(false)
-    //         setReady(true)
-    //     }, [100])
-    // }, [props.selectedDates])
+    // On date change, update DOM on delay
+    // to allow plotclick to attach
+    const [ready, setReady] = useState(false)
+    useEffect(()=> {
+        setTimeout(()=> {
+            setReady(false)
+            setReady(true)
+        }, 100)
+    }, [props.selectedDates])
+
+    console.log(ready)
 
     // Build object of glucose readings by day
     let glucoseDBD: {[key: string]: IData[]} = {}

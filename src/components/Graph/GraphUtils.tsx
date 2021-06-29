@@ -317,10 +317,12 @@ export function createData(item: IItem, props: IProps, setModal: Dispatch<IModal
     // Add the plotclick event listener to the graph
     // that updates the state variable "modal", to open
     // the modal with the appropriate point's data
+    console.log(dataToSend)
     let item0: IItem = item
     $(`#${item0.date.split('/').join('')}`).off('plotclick')
         .on('plotclick', function (event, item) {
         event.stopPropagation()
+        console.log(item.datapoint)
         if (item != null && item.datapoint) {
             for (let i = 0; i < item0.result.length; i++) {
                 let result: IData = item0.result[i]
