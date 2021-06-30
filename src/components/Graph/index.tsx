@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './Graph.css';
 import '../../jquery-loader';
 import ReactFlot from 'react-flot';
@@ -6,43 +6,12 @@ import '../../../node_modules/react-flot/flot/jquery.flot.time.min';
 import moment from 'moment';
 import { createData } from './GraphUtils';
 import ModalComp from '../Modal';
+import { ISelectedDates, IData, RangeTuple, IItem, IModal } from '../../GlobalTypes';
 
-interface ISelectedDates {
-    start: string,
-    end: string
-}
-
-interface IData {
-    _id: string,
-    result_id: string,
-    result_dt_tm: string,
-    glucose_level: number,
-    glucose_level_unit: string,
-    source: string
-}
-
-type RangeTuple = [number, number, string]
-
-interface IModal {
-    open: boolean;
-    data: {
-        glucoseLevelNum?: number,
-        glucoseLevel: number | string,
-        resultDate: string,
-        source: string,
-        resultId: string
-    };
-}
-
-interface IProps {
+type Props = {
     selectedDates: ISelectedDates,
     glucoseData: IData[],
     glucoseRangeTuples: RangeTuple[]
-}
-
-interface IItem {
-    date: string, 
-    result: IData[]
 }
 
 interface IOptions {
@@ -70,7 +39,7 @@ interface IOptions {
     }
 }
 
-function Graph(props: IProps): JSX.Element {
+function Graph(props: Props): JSX.Element {
 
     const [modal, setModal] = useState<IModal>({
         open: false,
@@ -81,18 +50,6 @@ function Graph(props: IProps): JSX.Element {
             resultId: ""
         }
     })
-
-    // On date change, update DOM on delay
-    // to allow plotclick to attach
-    const [ready, setReady] = useState(false)
-    useEffect(()=> {
-        setTimeout(()=> {
-            setReady(false)
-            setReady(true)
-        }, 100)
-    }, [props.selectedDates])
-
-    console.log(ready)
 
     // Build object of glucose readings by day
     let glucoseDBD: {[key: string]: IData[]} = {}

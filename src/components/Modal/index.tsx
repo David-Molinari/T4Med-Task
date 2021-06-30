@@ -2,27 +2,15 @@ import { useState, useEffect, Dispatch } from "react";
 import './Modal.css';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { hexToRgbA } from '../../Utils';
+import { IModal, RangeTuple } from '../../GlobalTypes';
 
-interface IModal {
-    open: boolean;
-    data: {
-        glucoseLevelNum?: number,
-        glucoseLevel: number | string,
-        resultDate: string,
-        source: string,
-        resultId: string
-    };
-}
-
-type RangeTuple = [number, number, string]
-
-interface IProps {
+type Props = {
     modal: IModal,
     setModal: Dispatch<IModal>,
     glucoseRangeTuples: RangeTuple[]
-}
+  }
 
-function ModalComp(props: IProps) {
+function ModalComp(props: Props) {
 
     const toggle = (): void => props.setModal({...props.modal, open: false});
 

@@ -8,6 +8,7 @@ import {
   gql
 } from "@apollo/client";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { IRange, RangeTuple, IData } from './GlobalTypes';
 
 const GET_RANGES_AND_DATA = gql`
   query GetRangesAndData {
@@ -26,28 +27,11 @@ const GET_RANGES_AND_DATA = gql`
   }
 `;
 
-interface IRange {
-  _id?: string,
-  low_bound: number,
-  high_bound: number,
-  color: string
-}
-
-type RangeTuple = [number, number, string]
-
-interface IData {
-  _id: string,
-  result_id: string,
-  result_dt_tm: string,
-  glucose_level: number,
-  glucose_level_unit: string,
-  source: string
-}
-
 type Data = {
   ranges: IRange[],
   data: IData[]
 }
+
 
 function App(): JSX.Element {
 

@@ -2,22 +2,8 @@ import { Dispatch } from 'react';
 import './Nav.css';
 import { Navbar, NavbarBrand, Form, FormGroup, Label } from 'reactstrap';
 import moment from 'moment';
-declare var require: any
-const DatePicker = require('reactstrap-date-picker');
-
-interface ISelectedDates {
-    start: string,
-    end: string
-}
-
-interface IData {
-    _id: string,
-    result_id: string,
-    result_dt_tm: string,
-    glucose_level: number,
-    glucose_level_unit: string,
-    source: string
-}
+import DatePicker from 'reactstrap-date-picker';
+import { ISelectedDates, IData } from '../../GlobalTypes';
 
 interface Props {
     selectedDates: ISelectedDates,

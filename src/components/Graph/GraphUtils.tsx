@@ -1,50 +1,12 @@
 import { Dispatch } from "react";
 import $ from "jquery";
 import { hexToRgbA } from '../../Utils';
+import { IData, IItem, ISelectedDates, RangeTuple, IModal } from '../../GlobalTypes';
 
-interface IData {
-    _id: string,
-    result_id: string,
-    result_dt_tm: string,
-    glucose_level: number,
-    glucose_level_unit: string,
-    source: string
-}
-
-interface IItem {
-    date: string, 
-    result: IData[]
-}
-
-interface ISelectedDates {
-    start: string,
-    end: string
-}
-
-// interface IRange {
-//     _id?: string,
-//     low_bound: number,
-//     high_bound: number,
-//     color: string
-// }
-
-type RangeTuple = [number, number, string]
-
-interface IProps {
+type Props = {
     selectedDates: ISelectedDates,
     glucoseData: IData[],
     glucoseRangeTuples: RangeTuple[]
-}
-
-interface IModal {
-    open: boolean;
-    data: {
-        glucoseLevelNum?: number,
-        glucoseLevel: number | string,
-        resultDate: string,
-        source: string,
-        resultId: string
-    };
 }
 
 type TTandGL = [number, number]
@@ -75,7 +37,7 @@ interface IDataToPush {
 }
 
 // Create data series for the day's flot graph
-export function createData(item: IItem, props: IProps, setModal: Dispatch<IModal>) {
+export function createData(item: IItem, props: Props, setModal: Dispatch<IModal>) {
     
     // Create initial data array of objects, including
     // ranges accompanied by readings in each range
@@ -317,13 +279,11 @@ export function createData(item: IItem, props: IProps, setModal: Dispatch<IModal
     // Add the plotclick event listener to the graph
     // that updates the state variable "modal", to open
     // the modal with the appropriate point's data
-    console.log(dataToSend)
     let item0: IItem = item
     $(`#${item0.date.split('/').join('')}`).off('plotclick')
-        .on('plotclick', function (event, item) {
+        .on('plotclick', function (event, pos, item) {
         event.stopPropagation()
-        console.log(item.datapoint)
-        if (item != null && item.datapoint) {
+        if (pos != null && item != null && item.datapoint) {
             for (let i = 0; i < item0.result.length; i++) {
                 let result: IData = item0.result[i]
                 let gL: number = result.glucose_level
