@@ -48,7 +48,7 @@ function Navigation(props: Props): JSX.Element {
         props.setSelectedDates({...props.selectedDates, end: moment(data).format()})
     }
 
-    // Disables typing/pasting into date input field
+    // Disables typing/pasting into date input field 
     const handleChangeRaw = (e: Event) => {
         e.preventDefault()
     }
