@@ -56,7 +56,7 @@ function Navigation(props: Props): JSX.Element {
     return (
       <div id="NavContainer">
         <Navbar id="Navbar" light>
-          <NavbarBrand href="/" id="NavbarBrand">T4Med — Glucose Data</NavbarBrand>
+          <NavbarBrand href="/" id="NavbarBrand">Glucose Reader Data</NavbarBrand>
             <Form id="NavForm">
                 <FormGroup className="NavFormGroup">
                     <Label className="Label">Top:</Label>
