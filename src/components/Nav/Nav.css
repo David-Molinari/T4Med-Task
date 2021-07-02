@@ -29,17 +29,20 @@
     text-align: left;
 }
 .DatePicker {
-    max-width: 250px;
+    padding-left: 5px;
+    max-width: 105px;
+    color: transparent;
+    text-shadow: 0 0 0 #212529;
+    cursor: pointer;
+}
+.DatePicker:focus, :focus-within, :focus-visible {
+    outline-color: #6e5a9a !important;
+}
+.react-datepicker__day--selected {
+    background-color: #6e5a9a !important;
 }
 .form-control {
     border-radius: .25rem !important;
-}
-.datepicker table tr td.active:active, 
-.datepicker table tr td.active.highlighted:active, 
-.datepicker table tr td.active.active, 
-.datepicker table tr td.active.highlighted.active {
-    color: #f7f7f7 !important;
-    background-color: #6e5a9a !important;
 }
 @media only screen and (max-width: 925px) {
     #Navbar {

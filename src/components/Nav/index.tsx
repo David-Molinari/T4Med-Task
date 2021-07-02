@@ -1,8 +1,9 @@
-import { Dispatch } from 'react';
+import { Dispatch, useState, useEffect } from 'react';
 import './Nav.css';
 import { Navbar, NavbarBrand, Form, FormGroup, Label } from 'reactstrap';
 import moment from 'moment';
-import DatePicker from 'reactstrap-date-picker';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { ISelectedDates, IData } from '../../GlobalTypes';
 
 interface Props {
@@ -13,19 +14,44 @@ interface Props {
 
 function Navigation(props: Props): JSX.Element {
 
+    const minDateLast = new Date(moment(props.glucoseData[0].result_dt_tm).format("MM-DD-YYYY"))
+    const [maxDateLast, setMaxDateLast] = useState<Object>(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
+    const [minDateTop, setMinDateTop] = useState<Object>(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
+    const maxDateTop = new Date(moment(props.glucoseData[props.glucoseData.length - 1].result_dt_tm).format("MM-DD-YYYY"))
+    const [lastDate, setLastDate] = useState<Object>(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
+    const [topDate, setTopDate] = useState<Object>(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
+    const [update, setUpdate] = useState<boolean>(false)
+
+    useEffect(()=> {
+        if (update === true) {
+            setMaxDateLast(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
+            setTopDate(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
+            setUpdate(false)
+        }
+    }, [props.selectedDates.end])
+
+    useEffect(()=> {
+        if (update === true) {
+            setMinDateTop(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
+            setLastDate(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
+            setUpdate(false)
+        }
+    }, [props.selectedDates.start])
+
     const handleChangeStart = (data: string): void => {
-        props.setSelectedDates({...props.selectedDates, start: data})
+        setUpdate(true)
+        props.setSelectedDates({...props.selectedDates, start: moment(data).format()})
     }
 
     const handleChangeEnd = (data: string): void => {
-        props.setSelectedDates({...props.selectedDates, end: data})
+        setUpdate(true)
+        props.setSelectedDates({...props.selectedDates, end: moment(data).format()})
     }
 
-    let minDateStart: string = moment(props.glucoseData[0].result_dt_tm).format()
-    let maxDateStart: string = props.selectedDates.end
-    let minDateEnd: string = props.selectedDates.start
-    let maxDateEnd: string = moment(props.glucoseData[props.glucoseData.length - 1].result_dt_tm).format()
-  
+    const handleChangeRaw = (e: Event) => {
+        e.preventDefault()
+    }
+
     return (
       <div id="NavContainer">
         <Navbar id="Navbar" light>
@@ -35,24 +61,24 @@ function Navigation(props: Props): JSX.Element {
                     <Label className="Label">Top:</Label>
                     <DatePicker
                         className="DatePicker"
-                        dateFormat="MM-DD-YYYY"
-                        value={props.selectedDates.end}
+                        selected={topDate}
+                        value={lastDate}
                         onChange={(data: string)=>handleChangeEnd(data)}
-                        minDate={minDateEnd}
-                        maxDate={maxDateEnd}
-                        showClearButton={false}
+                        onChangeRaw={(e: any)=> handleChangeRaw(e)}
+                        minDate={minDateTop}
+                        maxDate={maxDateTop}
                     />
                 </FormGroup>
                 <FormGroup id="SecondNFG" className="NavFormGroup">
                     <Label className="Label">Last:</Label>
                     <DatePicker
                         className="DatePicker"
-                        dateFormat="MM-DD-YYYY"
-                        value={props.selectedDates.start}
+                        selected={lastDate}
+                        value={lastDate}
                         onChange={(data: string)=>handleChangeStart(data)}
-                        minDate={minDateStart}
-                        maxDate={maxDateStart}
-                        showClearButton={false}
+                        onChangeRaw={(e: Event)=> handleChangeRaw(e)}
+                        minDate={minDateLast}
+                        maxDate={maxDateLast}
                     />
                 </FormGroup>
             </Form>
