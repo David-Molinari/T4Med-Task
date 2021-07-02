@@ -51,7 +51,7 @@ function Graph(props: Props): JSX.Element {
         }
     })
 
-    // Build object of glucose readings by day
+    // Build array of glucose readings by day
     let glucoseDBD: {[key: string]: IData[]} = {}
     for (let i = 0; i < props.glucoseData.length; i++) {
         let reading: IData = props.glucoseData[i]
@@ -64,7 +64,6 @@ function Graph(props: Props): JSX.Element {
         }
     }
 
-    // Build array of glucose readings by day
     let glucoseDBDArr: {date: string, result: IData[]}[] = []
     for (let i = 0; i < Object.keys(glucoseDBD).length; i++) {
         let date: string = Object.keys(glucoseDBD)[i]

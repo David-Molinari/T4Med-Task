@@ -14,26 +14,26 @@ interface Props {
 
 function Navigation(props: Props): JSX.Element {
 
-    const minDateLast = new Date(moment(props.glucoseData[0].result_dt_tm).format("MM-DD-YYYY"))
-    const [maxDateLast, setMaxDateLast] = useState<Object>(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
-    const [minDateTop, setMinDateTop] = useState<Object>(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
-    const maxDateTop = new Date(moment(props.glucoseData[props.glucoseData.length - 1].result_dt_tm).format("MM-DD-YYYY"))
-    const [lastDate, setLastDate] = useState<Object>(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
-    const [topDate, setTopDate] = useState<Object>(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
+    const minDateLast = new Date(props.glucoseData[0].result_dt_tm)
+    const [maxDateLast, setMaxDateLast] = useState<Object>(new Date(props.selectedDates.end))
+    const [minDateTop, setMinDateTop] = useState<Object>(new Date(props.selectedDates.start))
+    const maxDateTop = new Date(props.glucoseData[props.glucoseData.length - 1].result_dt_tm)
+    const [lastDate, setLastDate] = useState<Object>(new Date(props.selectedDates.start))
+    const [topDate, setTopDate] = useState<Object>(new Date(props.selectedDates.end))
     const [update, setUpdate] = useState<boolean>(false)
 
     useEffect(()=> {
         if (update === true) {
-            setMaxDateLast(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
-            setTopDate(new Date(moment(props.selectedDates.end).format("MM-DD-YYYY")))
+            setMaxDateLast(new Date(props.selectedDates.end))
+            setTopDate(new Date(props.selectedDates.end))
             setUpdate(false)
         }
     }, [props.selectedDates.end])
 
     useEffect(()=> {
         if (update === true) {
-            setMinDateTop(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
-            setLastDate(new Date(moment(props.selectedDates.start).format("MM-DD-YYYY")))
+            setMinDateTop(new Date(props.selectedDates.start))
+            setLastDate(new Date(props.selectedDates.start))
             setUpdate(false)
         }
     }, [props.selectedDates.start])
@@ -48,6 +48,7 @@ function Navigation(props: Props): JSX.Element {
         props.setSelectedDates({...props.selectedDates, end: moment(data).format()})
     }
 
+    // Disables typing/pasting into date input field
     const handleChangeRaw = (e: Event) => {
         e.preventDefault()
     }
@@ -64,7 +65,7 @@ function Navigation(props: Props): JSX.Element {
                         selected={topDate}
                         value={lastDate}
                         onChange={(data: string)=>handleChangeEnd(data)}
-                        onChangeRaw={(e: any)=> handleChangeRaw(e)}
+                        onChangeRaw={(e: Event)=> handleChangeRaw(e)}
                         minDate={minDateTop}
                         maxDate={maxDateTop}
                     />
