@@ -41,9 +41,6 @@ function App(): JSX.Element {
     start: "",
     end: ""
   })
-  const [modalOpen, setModalOpen] = useState<boolean>(true)
-
-  const toggle = (): void => setModalOpen(false);
 
   const { loading, error, data } = useQuery<Data>(GET_RANGES_AND_DATA);
 
@@ -89,19 +86,6 @@ function App(): JSX.Element {
     <>
       {!loading && glucoseData.length ? 
         <div className="App">
-            <Modal isOpen={modalOpen} className="Modal">
-              <ModalHeader 
-                    className="ModalHeader" 
-                    toggle={toggle}
-              >
-                See more info
-              </ModalHeader>
-              <ModalBody 
-                  className="ModalBody"
-              >
-                Click data point (colored dot) for more info on that reading
-              </ModalBody>
-          </Modal>
           <Nav selectedDates={selectedDates} setSelectedDates={setSelectedDates} glucoseData={glucoseData}/>
           <Graph selectedDates={selectedDates} glucoseData={glucoseData} glucoseRangeTuples={glucoseRangeTuples}/>
         </div>
