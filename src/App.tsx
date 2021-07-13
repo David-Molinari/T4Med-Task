@@ -7,7 +7,6 @@ import {
   useQuery,
   gql
 } from "@apollo/client";
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { IRange, RangeTuple, IData } from './GlobalTypes';
 
 const GET_RANGES_AND_DATA = gql`
