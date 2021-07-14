@@ -308,6 +308,9 @@ export function createData(item: IItem, props: Props, setModal: Dispatch<IModal>
         }
     });
     
+    // Add the plothover event listener to the graph
+    // that updates the cursor to pointer and
+    // adds a tooltip displayingthe  time and gL
     var previousPoint:any = null;
 
     $(`#${item0.date.split('/').join('')}`).off('plothover')
