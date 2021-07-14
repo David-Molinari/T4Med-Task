@@ -307,7 +307,64 @@ export function createData(item: IItem, props: Props, setModal: Dispatch<IModal>
             }
         }
     });
+    
+    var previousPoint:any = null;
+
+    $(`#${item0.date.split('/').join('')}`).off('plothover')
+        .on('plothover', function (event:any, pos: any, item:any) {
+        event.stopPropagation()
+        if(pos && item && item.datapoint) {
+            for (let i = 0; i < item0.result.length; i++) {
+                let result: IData = item0.result[i]
+                let gL: number = result.glucose_level
+                let hour: number = parseInt(result.result_dt_tm.slice(11,13))
+                let min: number = parseInt(result.result_dt_tm.slice(14,16))
+                let minDec: number = min/60
+                let time: number = hour + minDec
+                if (item.datapoint[0] == time && item.datapoint[1] == gL) {
+                    document.body.style.cursor = 'pointer';
+                    if (previousPoint != item.dataIndex) {
+                        previousPoint = item.dataIndex;
+                        $("#tooltip").remove();
+                        var y = item.datapoint[1];                
+                        let ttTime = result.result_dt_tm.slice(11,16)
+                        showTooltip(item.pageX, item.pageY,
+                            "<strong>" + ttTime + "</strong>" + 
+                            " time" + "<br/>" + "<strong>" + y + 
+                            "</strong>" + " gL", y);
+                    }
+                    break
+                }
+            }
+        } else {
+            document.body.style.cursor = 'default';
+            $("#tooltip").remove();
+            previousPoint = null;
+        }
+    });
+
+    function showTooltip(x:number, y:number, contents:string, gL:number) {
+        let color:string = '#fff'
+        for (let i = 0; i < props.glucoseRangeTuples.length; i++) {
+            if (gL >= props.glucoseRangeTuples[i][0] && 
+                gL <= props.glucoseRangeTuples[i][1]) {
+                color = props.glucoseRangeTuples[i][2]
+            }
+        }
+        $('<div id="tooltip">' + contents + '</div>').css({
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 20,
+            border: `2px solid ${color}`,
+            padding: '2px',     
+            size: '12',   
+            'border-radius': '5px 5px 5px 5px',
+            'background-color': hexToRgbA(color, .9),
+            opacity: 1
+        }).appendTo("body").fadeIn(200);
+    }    
 
     return dataToSend
-
+    
 }

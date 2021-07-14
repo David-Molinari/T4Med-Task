@@ -34,6 +34,7 @@ interface IOptions {
         }
     },
     grid: {
+        hoverable: boolean,
         clickable: boolean,
         autoHighlight: boolean
     }
@@ -50,6 +51,14 @@ function Graph(props: Props): JSX.Element {
             resultId: ""
         }
     })
+
+    // Give time for data series creator to run
+    // (see ReactFlot element data prop)
+    const [ready, setReady] = useState<any>('no')
+
+    setTimeout(()=> {
+        setReady('yes')
+    }, 500)
 
     // Build array of glucose readings by day
     let glucoseDBD: {[key: string]: IData[]} = {}
@@ -116,13 +125,14 @@ function Graph(props: Props): JSX.Element {
             }
         },
         grid: {
+            hoverable: true,
             clickable: true,
             autoHighlight: false
         }
     }
 
     return (
-        <div id="Graphs">
+        <div id="Graphs" key={ready}>
             {
             // Map graphs in range of selected dates
             props.selectedDates.start.length > 0 ?
