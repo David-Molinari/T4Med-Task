@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 export function hexToRgbA(hex: string, dec: number){
         let c: any;
         if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
@@ -9,4 +11,17 @@ export function hexToRgbA(hex: string, dec: number){
             return 'rgba(' + [(c>>16)&255, (c>>8)&255, c&255].join(',') + `,${dec})`;
         }
         throw new Error('Bad Hex');
+}
+
+export function isScrolledIntoView(elem: HTMLElement) {
+    var docViewTop: any = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop:number
+    var elemBottom:number
+
+    elemTop = $(elem)?.offset()?.top ?? 0;
+    elemBottom = elemTop ?? 0 + ($(elem).height() || 0) ;
+
+    return ((elemBottom ?? 0 <= docViewBottom) && (elemTop ?? 0 >= docViewTop));
 }
