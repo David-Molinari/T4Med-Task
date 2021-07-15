@@ -8,6 +8,7 @@ import {
   InMemoryCache,
   ApolloProvider
 } from "@apollo/client";
+import { relayStylePagination } from "@apollo/client/utilities";
 
 import dotenv from 'dotenv'
 
@@ -16,7 +17,14 @@ dotenv.config()
 const client = new ApolloClient({
   uri: process.env.REACT_APP_URI,
   cache: new InMemoryCache({
-    addTypename: false
+    addTypename: false,
+    typePolicies: {
+      Query: {
+        fields: {
+          data: relayStylePagination()
+        },
+      },
+    },
   })
 });
 
